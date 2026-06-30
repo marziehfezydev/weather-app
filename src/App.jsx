@@ -12,10 +12,7 @@ export default function App() {
     );
 
     const data = await response.json();
-
-
-
-
+    console.log(data)
 
     const latitude = data.results[0].latitude;
     const longitude = data.results[0].longitude;
@@ -26,7 +23,16 @@ export default function App() {
 
     const weatherData = await weatherResponse.json();
 
-    setWeather(weatherData);
+
+    console.log(weatherData)
+
+    const weatherInfo = {
+      city: data.results[0].name,
+      country: data.results[0].country,
+      current: weatherData.current,
+    };
+
+    setWeather(weatherInfo);
   }
 
   return (
@@ -34,17 +40,17 @@ export default function App() {
 
       <SearchBar city={city} setCity={setCity} handleSearch={handleSearch} />
 
-      <p className="text-center">
-        Temperature:
-        {weather?.current?.temperature_2m}
-      </p>
-
       <p className="text-center mt-4">
         City: {city}
       </p>
 
 
-      <WeatherCard />
+
+
+      {weather && < WeatherCard weather={weather} />}
+
+
+
     </div>
   );
 }
